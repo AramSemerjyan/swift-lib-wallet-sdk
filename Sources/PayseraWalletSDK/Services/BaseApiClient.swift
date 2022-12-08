@@ -44,6 +44,13 @@ public class BaseApiClient {
             .pendingPromise
             .promise
             .map(on: workQueue) { jsonString in
+                
+                if requestRouter.urlRequest?.url?.path.contains("/statements") ?? false {
+                    print("=================== Joooo ===================")
+                    print(jsonString)
+                    print("=============================================")
+                }
+                
                 guard let objects = Mapper<E>().mapArray(JSONString: jsonString) else {
                     throw PSApiError.mapping(json: jsonString)
                 }
